@@ -8,22 +8,24 @@ class Task{
 
   public:
     Task(string desc, int millitime);
+    Task(string desc, int millitime, int points);
     Task();
 
     string getDescription();
-    //void setDescription(const String desc);
-
     int getTime();
-    //void setTime(const int newTime);
-
     int getPoints();
-    //void setPoints(const int newPoints);
 
+    void setTime(const int newTime);
+    void setPoints(const int newPoints);
+    void setDescription(const string desc);
+
+    bool isDefault();
     int updateTime(); //deducts 100 milliseconds from eta, returns total time remaining;
 
     void toString();
 
   private:
+    bool defPoints;
     string description;
     int eta;
     int points;

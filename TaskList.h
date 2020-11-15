@@ -3,10 +3,17 @@
 
 #include "Task.h"
 #include <vector>
+#include <fstream>
+#include <unordered_map>
+#include <stdlib.h>
+#include <time.h>
+#include <algorithm>
+#include <functional>
 
 class TaskList{
   public:
     TaskList(); //reads from file
+    ~TaskList();
 
     void saveTasks(); //writes to file
 
@@ -15,15 +22,16 @@ class TaskList{
 
     void viewTask(string description);
 
-
     void changeTime(string description, int newTime);
     void changeDesc(string currDesc, string newDesc);
+    void changePoints(string description, int newPoints);
 
-    Task getRandom(); //returns one random task, deletes it from the unordered_map
-    //change completion time, etc?
+    void getRandomTasks(vector<Task> *listTasks); //returns random vector of 5 tasks
 
-    void tostring(); //prints out all tasks
+    void toString(); //prints out all tasks
+
   private:
-    vector<Task> taskVector; //for assignment at a certain index
+    string delimiter = ":";
+    unordered_map<string, Task> tasklist;
 };
 #endif

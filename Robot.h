@@ -22,21 +22,19 @@ class Robot{
     string getType();
     int getPoints();
     int getTime();
+    vector<Task>* getTasks();
 
     void addTask(Task job);
-    void addTask(vector<Task> jobs);
-    void printOut();
-
-    int startJob(); //creates and joins thread (or should this be done in a robotlist class) : while loop for time
-    int startJob(int specifiedTime);
+    void addTasks(vector<Task> *jobs);
+    void toString();
+    void printTasks();
+    void startJob();
+    void startJob(int specifiedTime);
 
   private:
-    //void executeJob(int specifiedTime);
-    //void executeJobReg();
-
-    int timeTaken, timeLimit, pointsEarned;
+    int timeTaken, pointsEarned;
 
     string name, robotType;
-    vector<Task> tasks; //order tasks from least time to greatest time
+    vector<Task> *tasks; //order tasks from least time to greatest time
 };
 #endif
