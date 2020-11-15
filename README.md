@@ -32,7 +32,7 @@ g++ -std=c++11 -o botomat -pthread Botomat.cpp Robot.cpp Robotlist.cpp TaskList.
 
 ### Compiling the program would use the command:
 ```bash
-clang++ --std=c++11 -stdlib=libc++ -llibc++ -lpthread -o foobar foobar.cpp
+clang++ --std=c++11 -stdlib=libc++ -llibc++ -lpthread -o botomat Botomat.cpp Robot.cpp Robotlist.cpp TaskList.cpp Task.cpp
 ```
 
 ### To run:
