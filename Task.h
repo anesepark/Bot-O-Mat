@@ -25,7 +25,7 @@ class Task{
     void toString();
 
   private:
-    bool defPoints;
+    bool defPoints; //indicates whether the program used the default point system or not
     std::string description;
     int eta;
     int points;

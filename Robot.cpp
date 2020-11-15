@@ -59,7 +59,7 @@ void Robot::addTasks(std::vector<Task> *jobs)
 
 void Robot::startJob() //no specified restriction time
 {
-  while(tasks->size() > 0)
+  while(tasks->size() > 0) //while there are still tasks to do
   {
     std::this_thread::sleep_for(std::chrono::milliseconds(100)); //does work for 100 milliseconds
 
@@ -79,11 +79,11 @@ void Robot::startJob(int specifiedTime) //specified time restriction
 {
   int timeLeft = specifiedTime;
 
-  while(timeLeft > 0 && !tasks->empty())
+  while(timeLeft > 0 && !tasks->empty()) //while there is still time left and tasks to do
   {
     std::this_thread::sleep_for(std::chrono::milliseconds(100)); //does work for 100 milliseconds
 
-    if(tasks->at(0).updateTime() == 0) //if the task at beginning of work list is done
+    if(tasks->at(0).updateTime() <= 0) //if the task at beginning of work list is done
     {
       pointsEarned += tasks->at(0).getPoints(); //adds amount of points the task is worth
       tasks->erase(tasks->begin()); //takes the task off of the list

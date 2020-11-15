@@ -8,7 +8,7 @@ TaskList::TaskList()
   inFS.open("tasks.txt");
   std::string line;
 
-  if(inFS)
+  if(inFS) //reads from task text file
   {
     std::string line;
     std::string desc, temp;
@@ -42,7 +42,7 @@ TaskList::TaskList()
     } //end of if
     inFS.close();
   }
-  else //if there is no file made that stores all tasks
+  else //if there is no file made that stores all tasks, set to default tasks
   {
     Task t1("sweep the house", 3000);
     Task t2("do the laundry", 10000);
@@ -93,7 +93,7 @@ void TaskList::saveTasks() //writes to file
 
 void TaskList::deleteTask(std::string description)
 {
-  if(tasklist.find(description) != tasklist.end())
+  if(tasklist.find(description) != tasklist.end()) //found task
   { tasklist.erase(description); }
   else
   { std::cout << "The task with the specified description (" << description << ") could not be found." << std::endl;}
@@ -101,7 +101,7 @@ void TaskList::deleteTask(std::string description)
 
 void TaskList::addTask(Task newTask)
 {
-  if(tasklist.find(newTask.getDescription()) != tasklist.end())
+  if(tasklist.find(newTask.getDescription()) != tasklist.end()) //found task
   { std::cout << "The task with the specified description (" << newTask.getDescription() << ") already exists." << std::endl;}
   else
   { tasklist[newTask.getDescription()] = newTask; }
@@ -109,7 +109,7 @@ void TaskList::addTask(Task newTask)
 
 void TaskList::viewTask(std::string description)
 {
-  if(tasklist.find(description) != tasklist.end())
+  if(tasklist.find(description) != tasklist.end()) //found task
   { tasklist[description].toString(); }
   else
   { std::cout << "The task with the specified description (" << description << ") could not be found." << std::endl;}
@@ -117,7 +117,7 @@ void TaskList::viewTask(std::string description)
 
 void TaskList::changeTime(std::string description, int newTime)
 {
-  if(tasklist.find(description) != tasklist.end())
+  if(tasklist.find(description) != tasklist.end()) //found task
   { tasklist[description].setTime(newTime); }
   else
   { std::cout << "The task with the specified description (" << description << ") could not be found." << std::endl; }
@@ -125,7 +125,7 @@ void TaskList::changeTime(std::string description, int newTime)
 
 void TaskList::changePoints(std::string description, int newPoints)
 {
-  if(tasklist.find(description) != tasklist.end())
+  if(tasklist.find(description) != tasklist.end()) //found task
   { tasklist[description].setPoints(newPoints); }
   else
   { std::cout << "The task with the specified description (" << description << ") could not be found." << std::endl; }
@@ -149,7 +149,7 @@ void TaskList::changeDesc(std::string currDesc, std::string newDesc) //check whe
   }
 }
 
-void TaskList::getRandomTasks(std::vector<Task> *listTasks) //returns random vector of 5 tasks
+void TaskList::getRandomTasks(std::vector<Task> *listTasks) //edits Robot's taskvector and adds 5 random tasks
 {
   int randnum;
   while(listTasks->size() < 5)

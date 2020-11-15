@@ -6,7 +6,7 @@ RobotList::RobotList() //create leaderboard
     inFS.open("leaderboard.txt");
     std::string line;
 
-    if(inFS)
+    if(inFS) //reading from leaderboard
     {
       std::string name, type;
       int points = 0;
@@ -34,7 +34,7 @@ RobotList::RobotList() //create leaderboard
       } //end of while
       inFS.close();
     }
-    else //if there is no file made that stores leaders
+    else //if there is no file made that stores leaders, initialize leaderboard
     {
       leaders.push_back(std::make_tuple("n/a", "n/a", 0));
       leaders.push_back(std::make_tuple("n/a", "unipedal", 0));
@@ -49,7 +49,7 @@ RobotList::RobotList() //create leaderboard
     rblst.open("robots.txt");
     std::string line2;
 
-    if(rblst)
+    if(rblst) //reading from saved robots
     {
       std::string name, robotType;
       while (!rblst.eof())
@@ -70,9 +70,9 @@ RobotList::RobotList() //create leaderboard
     }
 
 }
-RobotList::~RobotList(){ saveBoard(); }
+RobotList::~RobotList(){}
 
-bool RobotList::updateBoard(std::string name, std::string type, int points)
+bool RobotList::updateBoard(std::string name, std::string type, int points) //returns true/false to indicate whether there is a new highscore
 {
   bool updated = false;
   auto challenger = std::make_tuple(name, type, points);
@@ -83,7 +83,7 @@ bool RobotList::updateBoard(std::string name, std::string type, int points)
     updated = true;
   }
 
-  for(int i = 1; i < 7; i++)
+  for(int i = 1; i < 7; i++) //checking each type of robot
   {
     if(std::get<2>(leaders.at(i)) < points && std::get<1>(leaders.at(i)) == type)
     {
@@ -142,6 +142,8 @@ void RobotList::saveRobots()
     outFS << rob.second.getName() << ": " << rob.second.getType() << std::endl;
   }
 }
+
+
 void RobotList::changeName(std::string currentName, std::string newName)
 {
   if(robots.find(currentName) == robots.end()) //could not find the new name in list
@@ -172,7 +174,7 @@ void RobotList::changeType(std::string currentName, std::string newType)
 void RobotList::addRobot(std::string name, std::string type)
 {
 
-  if(robots.find(name) == robots.end()) //if we found the robot
+  if(robots.find(name) == robots.end()) //no robot with that name exists
   {
     std::cout << "Success! Robot with the name " << name << " and type " << type << " created." << std::endl;
     Robot newfriend(name, type);
@@ -185,7 +187,7 @@ void RobotList::addRobot(std::string name, std::string type)
 
 void RobotList::deleteRobot(std::string name)
 {
-  if(robots.find(name) != robots.end())
+  if(robots.find(name) != robots.end()) //if we found the robot
   { robots.erase(name); }
   else
   { std::cout << "Robot with the name " << name << " could not be found." << std::endl; }
@@ -195,7 +197,7 @@ void RobotList::viewRobot(std::string name)
 {
   auto found = robots.find(name);
 
-  if(found != robots.end())
+  if(found != robots.end()) //could not find robot
   {
     std::cout << "Name: " << robots[name].getName() << "\tType: " << robots[name].getType() << std::endl;
   }
@@ -212,7 +214,7 @@ void RobotList::assignTasks(TaskList listOfTasks)
 
 }
 
-void RobotList::startJobs()
+void RobotList::startJobs() //no specified time limit
 {
   for(auto rob : robots)
   {
@@ -227,14 +229,14 @@ void RobotList::startJobs()
   }
 
 
-  for(auto rob : robots)
+  for(auto rob : robots) //checks for a highscore
   {
     if(updateBoard(rob.second.getName(), rob.second.getType(), rob.second.getPoints()))
           std::cout << "New highscore from: " << rob.second.getName() << std::endl;
   }
 }
 
-void RobotList::startJobsTime(int specifiedTime)
+void RobotList::startJobsTime(int specifiedTime) //Robots run with a specified time limit
 {
   for(auto &rob : robots)
   {
@@ -254,12 +256,12 @@ void RobotList::startJobsTime(int specifiedTime)
   }
 }
 
-void RobotList::executeJobsTime(int specifiedTime, Robot rob)
+void RobotList::executeJobsTime(int specifiedTime, Robot rob) //thread function for specified time limit
 {
   robots[rob.getName()].startJob(specifiedTime);
 }
 
-void RobotList::executeJobs(Robot rob)
+void RobotList::executeJobs(Robot rob) //thread function without specified time limit
 {
   robots[rob.getName()].startJob();
 }
@@ -277,7 +279,7 @@ void RobotList::toString()
   }
 }
 
-void RobotList::toStringPoints()
+void RobotList::toStringPoints() //a toString, but prints out the points as well
 {
   for (auto rob : robots)
   {
