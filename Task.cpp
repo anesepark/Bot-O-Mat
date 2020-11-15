@@ -1,6 +1,6 @@
 #include "Task.h"
 
-Task::Task(string desc, int millitime)
+Task::Task(std::string desc, int millitime)
 {
   this->description = desc;
   this->eta = millitime;
@@ -8,7 +8,7 @@ Task::Task(string desc, int millitime)
   defPoints = true;
 }
 
-Task::Task(string desc, int millitime, int points)
+Task::Task(std::string desc, int millitime, int points)
 {
   this->description = desc;
   this->eta = millitime;
@@ -18,7 +18,7 @@ Task::Task(string desc, int millitime, int points)
 
 Task::Task(){}
 
-string Task::getDescription()
+std::string Task::getDescription()
 {
   return description;
 }
@@ -37,7 +37,7 @@ bool Task::isDefault()
 {
   return defPoints;
 }
-void Task::setPoints(int newPoints)
+void Task::setPoints(const int newPoints)
 {
   points = newPoints;
   defPoints = false;
@@ -48,7 +48,7 @@ void Task::setTime(const int newTime)
   eta = newTime;
 }
 
-void Task::setDescription(const string desc)
+void Task::setDescription(const std::string desc)
 {
   description = desc;
 }
@@ -56,7 +56,7 @@ void Task::setDescription(const string desc)
 
 void Task::toString()
 {
-  cout << description << ": " << eta << " milliseconds\t" << points << " points\n";
+  std::cout << description << ": " << eta << " milliseconds\t" << points << " points\n";
 }
 
 int Task::updateTime()

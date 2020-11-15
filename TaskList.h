@@ -17,21 +17,21 @@ class TaskList{
 
     void saveTasks(); //writes to file
 
-    void deleteTask(string description); //
+    void deleteTask(std::string description); //
     void addTask(Task newTask);
 
-    void viewTask(string description);
+    void viewTask(std::string description);
 
-    void changeTime(string description, int newTime);
-    void changeDesc(string currDesc, string newDesc);
-    void changePoints(string description, int newPoints);
+    void changeTime(std::string description, int newTime);
+    void changeDesc(std::string currDesc, std::string newDesc);
+    void changePoints(std::string description, int newPoints);
 
-    void getRandomTasks(vector<Task> *listTasks); //returns random vector of 5 tasks
+    void getRandomTasks(std::vector<Task> *listTasks); //returns random vector of 5 tasks
 
     void toString(); //prints out all tasks
 
   private:
-    string delimiter = ":";
-    unordered_map<string, Task> tasklist;
+    std::string delimiter = ":";
+    std::unordered_map<std::string, Task> tasklist;
 };
 #endif

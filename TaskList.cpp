@@ -4,14 +4,14 @@ TaskList::TaskList()
 {
   srand(time(NULL));
 
-  ifstream inFS;
+  std::ifstream inFS;
   inFS.open("tasks.txt");
-  string line;
+  std::string line;
 
   if(inFS)
   {
     std::string line;
-    string desc, temp;
+    std::string desc, temp;
     int time = 0;
     int points = 0;
     while (!inFS.eof())
@@ -72,11 +72,11 @@ TaskList::~TaskList(){}
 
 void TaskList::saveTasks() //writes to file
 {
-  ofstream outFS;
+  std::ofstream outFS;
   outFS.open("tasks.txt");
   if(!outFS.is_open())
   {
-    cout << "Could not open file." << endl;
+    std::cout << "Could not open file." << std::endl;
     return;
   }
 
@@ -91,54 +91,54 @@ void TaskList::saveTasks() //writes to file
   outFS.close();
 }
 
-void TaskList::deleteTask(string description)
+void TaskList::deleteTask(std::string description)
 {
   if(tasklist.find(description) != tasklist.end())
   { tasklist.erase(description); }
   else
-  { cout << "The task with the specified description (" << description << ") could not be found." << endl;}
+  { std::cout << "The task with the specified description (" << description << ") could not be found." << std::endl;}
 }
 
 void TaskList::addTask(Task newTask)
 {
   if(tasklist.find(newTask.getDescription()) != tasklist.end())
-  { cout << "The task with the specified description (" << newTask.getDescription() << ") already exists." << endl;}
+  { std::cout << "The task with the specified description (" << newTask.getDescription() << ") already exists." << std::endl;}
   else
   { tasklist[newTask.getDescription()] = newTask; }
 }
 
-void TaskList::viewTask(string description)
+void TaskList::viewTask(std::string description)
 {
   if(tasklist.find(description) != tasklist.end())
   { tasklist[description].toString(); }
   else
-  { cout << "The task with the specified description (" << description << ") could not be found." << endl;}
+  { std::cout << "The task with the specified description (" << description << ") could not be found." << std::endl;}
 }
 
-void TaskList::changeTime(string description, int newTime)
+void TaskList::changeTime(std::string description, int newTime)
 {
   if(tasklist.find(description) != tasklist.end())
   { tasklist[description].setTime(newTime); }
   else
-  { cout << "The task with the specified description (" << description << ") could not be found." << endl; }
+  { std::cout << "The task with the specified description (" << description << ") could not be found." << std::endl; }
 }
 
-void TaskList::changePoints(string description, int newPoints)
+void TaskList::changePoints(std::string description, int newPoints)
 {
   if(tasklist.find(description) != tasklist.end())
   { tasklist[description].setPoints(newPoints); }
   else
-  { cout << "The task with the specified description (" << description << ") could not be found." << endl; }
+  { std::cout << "The task with the specified description (" << description << ") could not be found." << std::endl; }
 }
 
-void TaskList::changeDesc(string currDesc, string newDesc) //check whether current desc exists, newdesc exists
+void TaskList::changeDesc(std::string currDesc, std::string newDesc) //check whether current desc exists, newdesc exists
 {
   if(currDesc == newDesc)
-  { cout << "The current description and the new description are the same." << endl; }
+  { std::cout << "The current description and the new description are the same." << std::endl; }
   else if(tasklist.find(newDesc) != tasklist.end())
-  { cout << "Another task has the description (" << newDesc << ")." << endl; }
+  { std::cout << "Another task has the description (" << newDesc << ")." << std::endl; }
   else if (tasklist.find(currDesc) == tasklist.end())
-  { cout << "The task with the specified description (" << currDesc << ") could not be found." << endl; }
+  { std::cout << "The task with the specified description (" << currDesc << ") could not be found." << std::endl; }
   else
   {
     Task temp = tasklist[currDesc];
@@ -149,7 +149,7 @@ void TaskList::changeDesc(string currDesc, string newDesc) //check whether curre
   }
 }
 
-void TaskList::getRandomTasks( vector<Task> *listTasks) //returns random vector of 5 tasks
+void TaskList::getRandomTasks(std::vector<Task> *listTasks) //returns random vector of 5 tasks
 {
   int randnum;
   while(listTasks->size() < 5)

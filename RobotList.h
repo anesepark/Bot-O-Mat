@@ -3,7 +3,6 @@
 
 #include "Robot.h"
 #include "TaskList.h"
-#include "Leaderboard.h"
 #include <unordered_map>
 #include <tuple>
 
@@ -12,13 +11,12 @@ class RobotList{
     RobotList();
     ~RobotList();
 
-    void changeName(string currentName, string newName);
-    void changeType(string currentName, string newType);
+    void changeName(std::string currentName, std::string newName);
+    void changeType(std::string currentName, std::string newType);
 
-  //  void addRobot(Robot &newRobot);
-    void addRobot(string name, string type);
-    void deleteRobot(string name);
-    void viewRobot(string name);
+    void addRobot(std::string name, std::string type);
+    void deleteRobot(std::string name);
+    void viewRobot(std::string name);
 
     void assignTasks(TaskList listOfTasks);
 
@@ -36,15 +34,15 @@ class RobotList{
   private:
     void executeJobsTime(int specifiedTime, Robot rob);
     void executeJobs(Robot rob);
-    bool updateBoard(string name, string type, int score);
+    bool updateBoard(std::string name, std::string type, int score);
 
-    unordered_map<string, Robot> robots;
-    vector<thread> threads;
+    std::unordered_map<std::string, Robot> robots;
+    std::vector<std::thread> threads;
 
-    //first string is the name, second is the type
-    std::vector<std::tuple<string, string, int>> leaders;
+    //first std::string is the name, second is the type
+    std::vector<std::tuple<std::string, std::string, int>> leaders;
 
-    string delimiter = ": ";
+    std::string delimiter = ": ";
 
 };
 #endif

@@ -2,13 +2,13 @@
 
 RobotList::RobotList() //create leaderboard
 {
-    ifstream inFS;
+    std::ifstream inFS;
     inFS.open("leaderboard.txt");
-    string line;
+    std::string line;
 
     if(inFS)
     {
-      string name, type;
+      std::string name, type;
       int points = 0;
       while (!inFS.eof())
       {
@@ -45,13 +45,13 @@ RobotList::RobotList() //create leaderboard
       leaders.push_back(std::make_tuple("n/a", "aeronautical", 0));
     }
 
-    ifstream rblst;
+    std::ifstream rblst;
     rblst.open("robots.txt");
-    string line2;
+    std::string line2;
 
     if(rblst)
     {
-      string name, robotType;
+      std::string name, robotType;
       while (!rblst.eof())
       {
           getline(rblst, line2);
@@ -72,12 +72,12 @@ RobotList::RobotList() //create leaderboard
 }
 RobotList::~RobotList(){ saveBoard(); }
 
-bool RobotList::updateBoard(string name, string type, int points)
+bool RobotList::updateBoard(std::string name, std::string type, int points)
 {
   bool updated = false;
   auto challenger = std::make_tuple(name, type, points);
 
-  if(get<2>(leaders.at(0)) < points) //checking for overall points
+  if(std::get<2>(leaders.at(0)) < points) //checking for overall points
   {
     leaders.at(0) = challenger;
     updated = true;
@@ -85,7 +85,7 @@ bool RobotList::updateBoard(string name, string type, int points)
 
   for(int i = 1; i < 7; i++)
   {
-    if(get<2>(leaders.at(i)) < points && get<1>(leaders.at(i)) == type)
+    if(std::get<2>(leaders.at(i)) < points && std::get<1>(leaders.at(i)) == type)
     {
       leaders.at(i) = challenger;
       updated = true;
@@ -97,52 +97,52 @@ bool RobotList::updateBoard(string name, string type, int points)
 
 void RobotList::printBoard()
 {
-  cout << "Overall Points:\n";
-  cout << get<0>(leaders.at(0)) << ": " << get<1>(leaders.at(0)) << ": " << get<2>(leaders.at(0)) << "\n" ;
-  cout << "By Category:\n";
+  std::cout << "Overall Points:\n";
+  std::cout << std::get<0>(leaders.at(0)) << ": " << std::get<1>(leaders.at(0)) << ": " << std::get<2>(leaders.at(0)) << "\n" ;
+  std::cout << "By Category:\n";
   for(int i = 1; i < 7; i++)
   {
-    cout << get<0>(leaders.at(i))<< ": " << get<1>(leaders.at(i)) << ": " << get<2>(leaders.at(i)) << "\n";
+    std::cout << std::get<0>(leaders.at(i))<< ": " << std::get<1>(leaders.at(i)) << ": " << std::get<2>(leaders.at(i)) << "\n";
   }
 }
 
 void RobotList::saveBoard()
 {
-  ofstream outFS;
+  std::ofstream outFS;
   outFS.open("leaderboard.txt");
   if(!outFS.is_open())
   {
-    cout << "Could not open file." << endl;
+    std::cout << "Could not open file." << std::endl;
     return;
   }
 
   outFS << "Overall Points:\n";
-  outFS << get<0>(leaders.at(0)) << ": " << get<1>(leaders.at(0)) << ": " << get<2>(leaders.at(0)) << "\n" ;
+  outFS << std::get<0>(leaders.at(0)) << ": " << std::get<1>(leaders.at(0)) << ": " << std::get<2>(leaders.at(0)) << "\n" ;
   outFS << "By Category:\n";
   for(int i = 1; i < 7; i++)
   {
-    outFS << get<0>(leaders.at(i))<< ": " << get<1>(leaders.at(i)) << ": " << get<2>(leaders.at(i)) << "\n";
+    outFS << std::get<0>(leaders.at(i))<< ": " << std::get<1>(leaders.at(i)) << ": " << std::get<2>(leaders.at(i)) << "\n";
   }
   outFS.close();
 }
 
 void RobotList::saveRobots()
 {
-  ofstream outFS;
+  std::ofstream outFS;
   outFS.open("robots.txt");
 
   if(!outFS.is_open())
   {
-    cout << "Could not open file." << endl;
+    std::cout << "Could not open file." << std::endl;
     return;
   }
 
   for( auto rob : robots)
   {
-    outFS << rob.second.getName() << ": " << rob.second.getType() << endl;
+    outFS << rob.second.getName() << ": " << rob.second.getType() << std::endl;
   }
 }
-void RobotList::changeName(string currentName, string newName)
+void RobotList::changeName(std::string currentName, std::string newName)
 {
   if(robots.find(currentName) == robots.end()) //could not find the new name in list
   {
@@ -153,11 +153,11 @@ void RobotList::changeName(string currentName, string newName)
     robots[newName].setName(newName);
   }
   else
-  { cout << "A robot with that name already exists." << endl; }
+  { std::cout << "A robot with that name already exists." << std::endl; }
 }
 
 
-void RobotList::changeType(string currentName, string newType)
+void RobotList::changeType(std::string currentName, std::string newType)
 {
   if(robots.find(currentName) != robots.end()) //if we found the robot
   {
@@ -165,43 +165,42 @@ void RobotList::changeType(string currentName, string newType)
   }
   else //did not find robot
   {
-    cout << "Robot with the name " << currentName << " could not be found." << endl;
+    std::cout << "Robot with the name " << currentName << " could not be found." << std::endl;
   }
 }
 
-void RobotList::addRobot(string name, string type)
+void RobotList::addRobot(std::string name, std::string type)
 {
 
   if(robots.find(name) == robots.end()) //if we found the robot
   {
-    cout << "Success! Robot with the name " << name << " and type " << type << " created." << endl;
+    std::cout << "Success! Robot with the name " << name << " and type " << type << " created." << std::endl;
     Robot newfriend(name, type);
     robots[name] = newfriend;
   }
   else //did not find robot
-  { cout << "A robot with that name already exists." << endl; }
+  { std::cout << "A robot with that name already exists." << std::endl; }
 
 }
 
-void RobotList::deleteRobot(string name)
+void RobotList::deleteRobot(std::string name)
 {
   if(robots.find(name) != robots.end())
   { robots.erase(name); }
   else
-  { cout << "Robot with the name " << name << " could not be found." << endl; }
+  { std::cout << "Robot with the name " << name << " could not be found." << std::endl; }
 }
 
-void RobotList::viewRobot(string name)
+void RobotList::viewRobot(std::string name)
 {
   auto found = robots.find(name);
 
   if(found != robots.end())
   {
-    cout << "Name: " << robots[name].getName() << "\tType: " << robots[name].getType() << endl;
-    robots[name].printTasks();
+    std::cout << "Name: " << robots[name].getName() << "\tType: " << robots[name].getType() << std::endl;
   }
   else
-  { cout << "Robot with the name " << name << " could not be found." << endl; }
+  { std::cout << "Robot with the name " << name << " could not be found." << std::endl; }
 }
 
 void RobotList::assignTasks(TaskList listOfTasks)
@@ -217,12 +216,12 @@ void RobotList::startJobs()
 {
   for(auto rob : robots)
   {
-    thread temp(RobotList::executeJobs, this, ref(robots[rob.second.getName()]));
+    std::thread temp(RobotList::executeJobs, this, std::ref(robots[rob.second.getName()]));
     threads.emplace_back(move(temp));
   }
 
 
-  for (thread &t : threads)
+  for (std::thread &t : threads)
   {
     t.join();
   }
@@ -231,7 +230,7 @@ void RobotList::startJobs()
   for(auto rob : robots)
   {
     if(updateBoard(rob.second.getName(), rob.second.getType(), rob.second.getPoints()))
-          cout << "New highscore from: " << rob.second.getName() << endl;
+          std::cout << "New highscore from: " << rob.second.getName() << std::endl;
   }
 }
 
@@ -239,19 +238,19 @@ void RobotList::startJobsTime(int specifiedTime)
 {
   for(auto &rob : robots)
   {
-    thread temp(RobotList::executeJobsTime, this, specifiedTime, ref(robots[rob.second.getName()]));
+    std::thread temp(RobotList::executeJobsTime, this, specifiedTime, std::ref(robots[rob.second.getName()]));
     threads.emplace_back(move(temp));
   }
-  for (thread &t : threads)
+  for (std::thread &t : threads)
   {
     t.join();
   }
 
   for(auto rob : robots)
   {
-    cout << "Name: " << rob.second.getName() << "\tPoints: " << rob.second.getPoints() << endl;
+    std::cout << "Name: " << rob.second.getName() << "\tPoints: " << rob.second.getPoints() << std::endl;
     if(updateBoard(rob.second.getName(), rob.second.getType(), rob.second.getPoints()))
-          cout << "New highscore from: " << rob.second.getName() << endl;
+          std::cout << "New highscore from: " << rob.second.getName() << std::endl;
   }
 }
 
@@ -269,12 +268,12 @@ void RobotList::toString()
 {
   if(robots.size() == 0)
   {
-    cout << "No robots currently in the list.\n";
+    std::cout << "No robots currently in the list.\n";
     return;
   }
   for (auto rob : robots)
   {
-    cout << "Name: " << rob.second.getName() << "\tType: " << rob.second.getType() << endl;
+    std::cout << "Name: " << rob.second.getName() << "\tType: " << rob.second.getType() << std::endl;
   }
 }
 
@@ -282,6 +281,6 @@ void RobotList::toStringPoints()
 {
   for (auto rob : robots)
   {
-    cout << "Name: " << rob.second.getName() << "\tType: " << rob.second.getType() << "\tPoints: " << rob.second.getPoints() << endl;
+    std::cout << "Name: " << rob.second.getName() << "\tType: " << rob.second.getType() << "\tPoints: " << rob.second.getPoints() << std::endl;
   }
 }

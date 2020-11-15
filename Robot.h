@@ -8,33 +8,30 @@
 #include <chrono>
 #include <iostream>
 
-using namespace std;
 class Robot{
   public:
-    Robot(string name, string robotType);
+    Robot(std::string name, std::string robotType);
     Robot();
     ~Robot(); //destroy the vector once done;
 
-    void setName(const string name);
-    void setType(const string botType);
+    void setName(const std::string name);
+    void setType(const std::string botType);
 
-    string getName();
-    string getType();
+    std::string getName();
+    std::string getType();
     int getPoints();
     int getTime();
-    vector<Task>* getTasks();
+    std::vector<Task>* getTasks();
 
-    void addTask(Task job);
-    void addTasks(vector<Task> *jobs);
+    void addTasks(std::vector<Task> *jobs);
     void toString();
-    void printTasks();
     void startJob();
     void startJob(int specifiedTime);
 
   private:
     int timeTaken, pointsEarned;
 
-    string name, robotType;
-    vector<Task> *tasks; //order tasks from least time to greatest time
+    std::string name, robotType;
+    std::vector<Task> *tasks; //order tasks from least time to greatest time
 };
 #endif

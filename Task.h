@@ -3,21 +3,21 @@
 
 #include <string>
 #include <iostream>
-using namespace std;
+
 class Task{
 
   public:
-    Task(string desc, int millitime);
-    Task(string desc, int millitime, int points);
+    Task(std::string desc, int millitime);
+    Task(std::string desc, int millitime, int points);
     Task();
 
-    string getDescription();
+    std::string getDescription();
     int getTime();
     int getPoints();
 
     void setTime(const int newTime);
     void setPoints(const int newPoints);
-    void setDescription(const string desc);
+    void setDescription(const std::string desc);
 
     bool isDefault();
     int updateTime(); //deducts 100 milliseconds from eta, returns total time remaining;
@@ -26,7 +26,7 @@ class Task{
 
   private:
     bool defPoints;
-    string description;
+    std::string description;
     int eta;
     int points;
 };
