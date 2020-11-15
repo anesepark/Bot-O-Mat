@@ -44,14 +44,12 @@ clang++ --std=c++11 -stdlib=libc++ -llibc++ -lpthread -o botomat Botomat.cpp Rob
 
 ### mingw-64 should be downloaded and added to environment variables. Please make sure to check off posix/pthreads.
 
-###Compiling the program would use the command:
+### Compiling the program would use the command:
 ```bash
 g++ -std=c++11 -o botomat -pthread Botomat.cpp Robot.cpp Robotlist.cpp TaskList.cpp Task.cpp
 ```
 
-Note: If this gives you an error, try the flag -lpthread instead.
-
-To run:
+### To run:
 ```bash
 ./botomat
 ```
