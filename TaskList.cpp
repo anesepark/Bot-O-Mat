@@ -44,7 +44,6 @@ TaskList::TaskList()
   }
   else //if there is no file made that stores all tasks
   {
-    cout << "No file to read from! Initializing default tasks\n";
     Task t1("sweep the house", 3000);
     Task t2("do the laundry", 10000);
     Task t3("do the dishes", 1000);
