@@ -1,0 +1,13 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+
+# Executables
+*.exe
+*.out
