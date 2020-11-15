@@ -55,7 +55,6 @@ RobotList::RobotList() //create leaderboard
       while (!rblst.eof())
       {
           getline(rblst, line2);
-          cout << line2 << endl;
           if(line2.empty())
             break;
 
